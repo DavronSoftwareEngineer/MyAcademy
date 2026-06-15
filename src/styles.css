@@ -15,6 +15,24 @@
   --violet: #9a8cff;
   --code-bg: #0c1318;
   --accent: #34d6c0;
+  --on-accent: #0b1014; /* urg'u rang ustidagi matn — ikkala mavzuда to'q */
+  --topbar-bg: linear-gradient(180deg, rgba(11, 16, 20, 0.92), rgba(11, 16, 20, 0.72));
+}
+
+/* Light (kunduzgi) mavzu — faqat fon/matn/chegara ranglari almashadi.
+   Urg'u ranglari (--teal/--accent/--violet ...) va --on-accent o'zgarmaydi. */
+:root[data-theme="light"] {
+  --ink: #f3f6fa;
+  --ink-2: #ffffff;
+  --surface: #eef2f7;
+  --surface-2: #e4eaf1;
+  --line: #d3dce5;
+  --line-soft: #e6ebf1;
+  --fg: #16212c;
+  --fg-dim: #465664;
+  --fg-faint: #687785;
+  --code-bg: #f1f4f8;
+  --topbar-bg: linear-gradient(180deg, rgba(243, 246, 250, 0.95), rgba(243, 246, 250, 0.78));
 }
 
 * {
@@ -97,7 +115,7 @@ button {
   gap: 20px;
   padding: 18px 28px;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(11, 16, 20, 0.92), rgba(11, 16, 20, 0.72));
+  background: var(--topbar-bg);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   position: sticky;
@@ -257,7 +275,7 @@ button {
   border-color: var(--line);
 }
 .navitem.active .zoom {
-  color: var(--ink);
+  color: var(--on-accent);
   background: var(--teal);
   border-color: var(--teal);
 }
@@ -321,7 +339,7 @@ button {
 }
 .dashbtn.active .zoom.dz {
   background: var(--amber);
-  color: var(--ink);
+  color: var(--on-accent);
   border-color: var(--amber);
 }
 
@@ -549,6 +567,30 @@ h2.mtitle {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--teal);
+}
+.codelang-switch {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.codelang-switch .clbtn {
+  cursor: pointer;
+  background: var(--ink-2);
+  border: none;
+  color: var(--fg-faint);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 9px;
+  transition: background 0.15s, color 0.15s;
+}
+.codelang-switch .clbtn + .clbtn {
+  border-left: 1px solid var(--line);
+}
+.codelang-switch .clbtn.active {
+  background: var(--teal);
+  color: var(--on-accent);
 }
 .copybtn {
   cursor: pointer;
@@ -1050,7 +1092,7 @@ pre::-webkit-scrollbar-thumb {
   cursor: pointer;
   margin-left: 6px;
   background: var(--teal);
-  color: var(--ink);
+  color: var(--on-accent);
   border: none;
   font-weight: 600;
   font-size: 13px;
@@ -1190,7 +1232,7 @@ pre::-webkit-scrollbar-thumb {
 }
 .course-switch button.on {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 
 /* ── Language lessons (example sentences + vocab) ── */
@@ -1284,7 +1326,49 @@ table.vocab td {
 
 /* ── Mobile ── */
 .menubtn {
-  display: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  cursor: pointer;
+  color: var(--fg);
+}
+.menubtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.themebtn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  cursor: pointer;
+  color: var(--fg-dim);
+  transition: color 0.15s, border-color 0.15s;
+}
+.themebtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+/* Desktopda sidebarni yig'ish/ochish (menu-open = yig'ilgan holat) */
+@media (min-width: 901px) {
+  .app.menu-open .shell {
+    grid-template-columns: 1fr;
+  }
+  .app.menu-open .side {
+    display: none;
+  }
+  .app.menu-open .scrim.show {
+    display: none;
+  }
 }
 @media (max-width: 900px) {
   .shell {
@@ -1418,7 +1502,7 @@ table.vocab td {
 }
 .course-switch button.active {
   background: var(--teal);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 .course-switch button:not(.active):hover {
   color: var(--fg);
@@ -1461,6 +1545,175 @@ table.vocab td {
   }
 }
 
+/* Kitob ro'yxati — muqova (foto + fallback karta) */
+.booklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0 16px;
+}
+.bookcard {
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 12px 14px;
+}
+.bookcover {
+  position: relative;
+  flex: 0 0 auto;
+  width: 78px;
+  height: 112px;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+/* Fallback: foto yuklanmasa shu chizilgan muqova ko'rinadi */
+.bc-art {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 9px 8px;
+  background: linear-gradient(150deg, var(--bc, var(--accent)), #0b1014);
+}
+.bc-art .t {
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1.15;
+  color: #0b1014;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.bc-art .a {
+  font-size: 9px;
+  font-weight: 600;
+  color: #0b1014;
+  opacity: 0.8;
+}
+/* Haqiqiy foto — muvaffaqiyatli yuklansa fallback ustini yopadi */
+.bookcover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--ink-2);
+}
+.bc-num {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 2;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: rgba(11, 16, 20, 0.82);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bookmeta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+.bookmeta b {
+  font-size: 15px;
+  color: var(--fg);
+  font-weight: 600;
+}
+.bookmeta .author {
+  font-size: 12.5px;
+  color: var(--bc, var(--accent));
+  font-weight: 600;
+}
+.bookmeta .note {
+  font-size: 12.5px;
+  color: var(--fg-dim);
+  line-height: 1.4;
+}
+
+/* Modul ichidagi "Bu modulga oid kitob" eslatmasi */
+.modbook {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--bc, var(--accent));
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 0 0 18px;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+.modbook:hover {
+  border-color: var(--bc, var(--accent));
+}
+.modbook .bookcover {
+  width: 46px;
+  height: 66px;
+  flex: 0 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.modbook .bc-num {
+  display: none;
+}
+.modbook .bc-art {
+  padding: 5px;
+}
+.modbook .bc-art .t {
+  font-size: 8px;
+}
+.modbook .bc-art .a {
+  font-size: 7px;
+}
+.modbook .mb-tx {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+.modbook .mb-tx small {
+  color: var(--bc, var(--accent));
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.modbook .mb-tx b {
+  font-size: 14.5px;
+  color: var(--fg);
+}
+.modbook .mb-tx > span {
+  font-size: 12px;
+  color: var(--fg-dim);
+}
+.modbook .mb-go {
+  flex: 0 0 auto;
+  color: var(--bc, var(--accent));
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .modbook .mb-go {
+    display: none;
+  }
+}
+
 /* ============================================================
    Interaktiv mashqlar, Flashcards, Ma'lumotnoma
    ============================================================ */
@@ -1468,7 +1721,7 @@ table.vocab td {
 /* tool tugmalar (Lug'at / Ma'lumotnoma) */
 .toolbtn .zoom.dz2 { background: var(--ink-2); color: var(--teal); border-color: var(--line); }
 .toolbtn.active { background: var(--surface-2); color: var(--fg); border-color: var(--line); }
-.toolbtn.active .zoom.dz2 { background: var(--teal); color: var(--ink); border-color: var(--teal); }
+.toolbtn.active .zoom.dz2 { background: var(--teal); color: var(--on-accent); border-color: var(--teal); }
 
 /* ── Exercises ── */
 .excset { display: flex; flex-direction: column; gap: 14px; }
@@ -1480,7 +1733,7 @@ table.vocab td {
 .exc-input { background: var(--ink-2); border: 1px solid var(--line); border-bottom: 2px solid var(--teal); color: var(--fg); font: inherit; font-size: 15px; padding: 2px 8px; border-radius: 6px; min-width: 90px; margin: 0 4px; }
 .exc-input:focus { outline: none; border-color: var(--teal); }
 .exc-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.exc-btn { cursor: pointer; background: var(--teal); color: var(--ink); border: none; font-weight: 600; font-size: 13px; padding: 7px 14px; border-radius: 8px; }
+.exc-btn { cursor: pointer; background: var(--teal); color: var(--on-accent); border: none; font-weight: 600; font-size: 13px; padding: 7px 14px; border-radius: 8px; }
 .exc-btn:disabled { opacity: 0.5; cursor: default; }
 .exc-hint { font-size: 12.5px; color: var(--fg-faint); }
 .exc-fb { font-size: 13.5px; font-weight: 600; }
@@ -1509,7 +1762,7 @@ table.vocab td {
 .fc-review, .fc-know { flex: 1; cursor: pointer; padding: 13px; border-radius: 11px; font-weight: 600; font-size: 14px; border: 1px solid var(--line); transition: all 0.15s; }
 .fc-review { background: var(--surface); color: var(--fg-dim); }
 .fc-review:hover { color: var(--fg); border-color: var(--fg-faint); }
-.fc-know { background: var(--teal); color: var(--ink); border-color: var(--teal); }
+.fc-know { background: var(--teal); color: var(--on-accent); border-color: var(--teal); }
 .fc-done { background: rgba(52, 214, 192, 0.08); border: 1px solid rgba(52, 214, 192, 0.3); border-radius: 12px; padding: 18px; color: var(--fg); font-size: 14.5px; line-height: 1.6; }
 
 /* ── Reference ── */
@@ -1649,7 +1902,7 @@ table.vocab td {
 .qk { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 9px; border-radius: 5px; background: var(--ink-2); border: 1px solid var(--line); font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--fg-dim); vertical-align: middle; }
 
 /* ── Listening mashqi ── */
-.exc-listen { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; margin-left: 10px; background: var(--teal); color: var(--ink); border: none; font-weight: 600; font-size: 13px; padding: 5px 11px; border-radius: 8px; vertical-align: middle; }
+.exc-listen { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; margin-left: 10px; background: var(--teal); color: var(--on-accent); border: none; font-weight: 600; font-size: 13px; padding: 5px 11px; border-radius: 8px; vertical-align: middle; }
 .exc-listen:hover { background: var(--teal-deep); }
 .exc-input.wide { display: block; width: 100%; min-width: 0; margin: 10px 0 0; }
 
@@ -1711,7 +1964,7 @@ table.vocab td {
   border-radius: 7px;
   transition: all 0.15s;
 }
-.pg-seg button.active { background: var(--teal); color: var(--ink); }
+.pg-seg button.active { background: var(--teal); color: var(--on-accent); }
 .pg-grid2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1768,7 +2021,7 @@ table.vocab td {
 .pg-send {
   cursor: pointer;
   background: var(--teal);
-  color: var(--ink);
+  color: var(--on-accent);
   border: none;
   font-weight: 600;
   font-size: 14px;

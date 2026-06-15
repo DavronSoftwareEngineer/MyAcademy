@@ -1,10 +1,11 @@
 # MyAcademy
 
-Bitta ilova, **to'rtta mustaqil kurs**:
+Bitta ilova, **beshta mustaqil kurs**:
 - **Geospatial** — WebGIS Full-Stack (React, NestJS, PostGIS, Tegola, Docker)
 - **English** — 0 dan IELTS gacha (A1→B2 + Listening/Reading/Writing/Speaking)
 - **Moliya** — Moliyaviy savodxonlik (byudjet → jamg'arma → qarz → xavfsizlik → investitsiya)
 - **Rus tili** — 0 → B1 (kirill alifbosi, kelishiklar, fe'l aspekti, suhbat; talaffuz audiosi bilan)
+- **AI Prompt** — AI bilan ishlash (prompting, aniqlik, rol, few-shot, xavfsizlik; interaktiv Playground bilan)
 
 React 18 · TypeScript · Vite. Tashqi UI kutubxonasiz, sof CSS.
 
@@ -32,7 +33,7 @@ Loyiha statik SPA — `dist/` ni istalgan statik hostga qo'yish mumkin.
 
 - Yon panel tepasidagi **Geospatial / English** tugmasi bilan almashasan.
 - Har kursning **progressi va test natijalari alohida** saqlanadi:
-  `webgis_*`, `english_*`, `finance_*`, `russian_*` (progress / quiz / srs — localStorage). Kunlik seriya — `myacademy_streak`.
+  `webgis_*`, `english_*`, `finance_*`, `russian_*`, `prompting_*` (progress / quiz / srs — localStorage). Kunlik seriya — `myacademy_streak`.
 - Tayyorlik paneli ham har kurs uchun **alohida** hisoblanadi.
 - English kursi **binafsha**, Geospatial **feruza** urg'u rangida — qaysi kursdaliging darrov bilinadi.
 
@@ -41,10 +42,11 @@ Loyiha statik SPA — `dist/` ni istalgan statik hostga qo'yish mumkin.
 ```
 src/
   data/
-    webgis.json      Geospatial kurs (10 modul)
-    english.json     English kurs (11 modul: A0→Exam)
-    finance.json     Moliya kursi (9 modul: F0→F8)
-    russian.json     Rus tili kursi (9 modul: Алф→Речь)
+    webgis.json      Geospatial kurs (11 modul)
+    english.json     English kurs (12 modul: A0→Exam)
+    finance.json     Moliya kursi (10 modul: F0→F9)
+    russian.json     Rus tili kursi (10 modul: Алф→Речь)
+    prompting.json   AI Prompt kursi (6 modul; Playground bilan)
     courses.ts       kurslar registri (brand + tab nomlari)
   types.ts
   lib/highlight.ts   sintaksis ranglagich
@@ -57,7 +59,7 @@ src/
   store.tsx          kurs-aware: progress + test + srs + streak + backup + toast
   components/        TopBar, Sidebar (+switcher), ModuleView, CodeBlock,
                      Quiz, Exercises, Flashcards, Reference, Search,
-                     Dashboard, RichHtml, Topo
+                     Dashboard, Playground, RichHtml, Topo
   App.tsx, main.tsx, styles.css
 public/
   manifest.webmanifest, sw.js, icon.svg   (PWA / offline)
@@ -83,4 +85,3 @@ public/
 
 `src/data/webgis.json` yoki `src/data/english.json` ni tahrirla — har modul:
 doc (HTML), code[], tasks[] (id+html+crit), quiz[] (q/a/c/w), resources[], project.
-# MyAcademy

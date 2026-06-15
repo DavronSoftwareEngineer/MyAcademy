@@ -19,6 +19,8 @@ interface StoreValue {
   courseId: string;
   course: Course;
   setCourse: (id: string) => void;
+  theme: string;
+  toggleTheme: () => void;
   progress: Progress;
   quizScores: QuizScores;
   srs: SrsState;
@@ -36,9 +38,12 @@ interface StoreValue {
 const Ctx = createContext<StoreValue | null>(null);
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [courseId, setCourseId] = useState<string>(() =>
-    loadJSON<string>("active_course", COURSES[0].id)
-  );
+  const [courseId, setCourseId] = useState<string>(() => {
+    // Eski/yaroqsiz active_course localStorage'да qolgan bo'lsa — birinchi kursга qaytamiz
+    // (aks holda COURSE_BY_ID[courseId] undefined bo'lib, ilova ishlamay qoladi).
+    const saved = loadJSON<string>("active_course", COURSES[0].id);
+    return COURSE_BY_ID[saved] ? saved : COURSES[0].id;
+  });
   const [progressMap, setProgressMap] = useState<Record<string, Progress>>(() => {
     const o: Record<string, Progress> = {};
     COURSES.forEach((c) => (o[c.id] = loadJSON(c.id + "_progress", {})));
@@ -55,6 +60,28 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     return o;
   });
   const [streak, setStreak] = useState<Streak>(() => loadJSON(STREAK_KEY, EMPTY_STREAK));
+
+  const [theme, setThemeState] = useState<string>(() => {
+    const saved = loadJSON<string | null>("myacademy_theme", null);
+    if (saved === "light" || saved === "dark") return saved;
+    // Saqlanmagan bo'lsa — tizim sozlamasiga ergashamiz (sukut: dark).
+    const prefersLight =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: light)").matches;
+    return prefersLight ? "light" : "dark";
+  });
+
+  // Mavzuni <html data-theme> ga yozamiz va saqlaymiz.
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    saveJSON("myacademy_theme", theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(
+    () => setThemeState((t) => (t === "dark" ? "light" : "dark")),
+    []
+  );
 
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const toastTimer = useRef<number | undefined>(undefined);
@@ -153,8 +180,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const value: StoreValue = {
     courseId,
-    course: COURSE_BY_ID[courseId],
+    course: COURSE_BY_ID[courseId] || COURSES[0],
     setCourse,
+    theme,
+    toggleTheme,
     progress: progressMap[courseId] || {},
     quizScores: quizMap[courseId] || {},
     srs: srsMap[courseId] || {},

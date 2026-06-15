@@ -9,8 +9,9 @@ import { Flashcards } from "./components/Flashcards";
 import { Reference } from "./components/Reference";
 import { Search } from "./components/Search";
 import { Playground } from "./components/Playground";
+import { Books } from "./components/Books";
 
-type View = number | "dash" | "flash" | "ref" | "search" | "play";
+type View = number | "dash" | "flash" | "ref" | "search" | "play" | "books";
 
 export default function App() {
   const { progress, course, courseId } = useStore();
@@ -49,10 +50,12 @@ export default function App() {
       ? "Qidiruv"
       : view === "play"
       ? "Playground"
-      : modules[safeIndex].coord;
+      : view === "books"
+      ? "Kitoblar"
+      : (modules[safeIndex]?.coord ?? "");
 
   return (
-    <div className={"app course-" + courseId}>
+    <div className={"app course-" + courseId + (menuOpen ? " menu-open" : "")}>
       <Topo />
       <div className="wrap">
         <TopBar coord={coord} overall={overall} onDash={() => goView("dash")} onMenu={() => setMenuOpen((o) => !o)} />
@@ -65,12 +68,14 @@ export default function App() {
             refActive={view === "ref"}
             searchActive={view === "search"}
             playActive={view === "play"}
+            booksActive={view === "books"}
             onSelect={goModule}
             onDash={() => goView("dash")}
             onFlash={() => goView("flash")}
             onRef={() => goView("ref")}
             onSearch={() => goView("search")}
             onPlay={() => goView("play")}
+            onBooks={() => goView("books")}
             onClose={() => setMenuOpen(false)}
           />
           <main className="main" key={courseId}>
@@ -79,7 +84,10 @@ export default function App() {
             {view === "ref" && <Reference />}
             {view === "search" && <Search onGo={goModule} />}
             {view === "play" && <Playground />}
-            {typeof view === "number" && <ModuleView index={safeIndex} onGo={goModule} />}
+            {view === "books" && <Books />}
+            {typeof view === "number" && (
+              <ModuleView index={safeIndex} onGo={goModule} onBooks={() => goView("books")} />
+            )}
           </main>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { RichHtml } from "./RichHtml";
 import { CodeBlock } from "./CodeBlock";
 import { Quiz } from "./Quiz";
 import { Exercises } from "./Exercises";
+import { BookCover } from "./Books";
 
 const CheckIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="#0B1014" strokeWidth={3}>
@@ -26,12 +27,24 @@ const PlayIcon = () => (
   </svg>
 );
 
-export function ModuleView({ index, onGo }: { index: number; onGo: (i: number) => void }) {
+export function ModuleView({
+  index,
+  onGo,
+  onBooks,
+}: {
+  index: number;
+  onGo: (i: number) => void;
+  onBooks: () => void;
+}) {
   const { course, isDone, toggleTask } = useStore();
   const modules = course.modules;
   const L = course.labels;
   const m = modules[index];
   const [tab, setTab] = useState("doc");
+
+  // Shu modulга biriktirilgan kitob (kurs moduleBooks[zoom] → books[] dan).
+  const refN = course.moduleBooks?.[m.zoom];
+  const refBook = refN ? course.books?.find((b) => b.n === refN) : undefined;
 
   useEffect(() => {
     setTab("doc");
@@ -57,6 +70,18 @@ export function ModuleView({ index, onGo }: { index: number; onGo: (i: number) =
       <div className="eyebrow">{m.eyebrow}</div>
       <h2 className="mtitle">{m.mtitle}</h2>
       <p className="mlede" dangerouslySetInnerHTML={{ __html: m.lede }} />
+
+      {refBook && (
+        <button className="modbook" style={{ ["--bc" as string]: refBook.accent }} onClick={onBooks}>
+          <BookCover book={refBook} />
+          <span className="mb-tx">
+            <small>📖 Bu modulga oid kitob</small>
+            <b>{refBook.title}</b>
+            <span>{refBook.author}</span>
+          </span>
+          <span className="mb-go">Kitoblar →</span>
+        </button>
+      )}
 
       <div className="tabs">
         {tabs.map((t) => (

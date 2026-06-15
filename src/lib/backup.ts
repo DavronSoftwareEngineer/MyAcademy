@@ -2,7 +2,7 @@
 import { COURSES } from "../data/courses";
 
 const SUFFIXES = ["_progress", "_quiz", "_vocab", "_srs"];
-const GLOBAL_KEYS = ["active_course", "myacademy_streak"];
+const GLOBAL_KEYS = ["active_course", "myacademy_streak", "myacademy_theme"];
 
 export interface Backup {
   app: "MyAcademy";

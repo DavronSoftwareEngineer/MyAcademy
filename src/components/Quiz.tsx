@@ -19,16 +19,20 @@ export function Quiz({ zoom, questions }: { zoom: string; questions: QuizQuestio
     (qi: number, oi: number) => {
       setPicks((prev) => {
         if (prev[qi] !== undefined || oi >= questions[qi].a.length) return prev;
-        const next = { ...prev, [qi]: oi };
-        if (Object.keys(next).length === questions.length) {
-          const r = Object.entries(next).filter(([q, o]) => questions[+q].c === o).length;
-          recordQuiz(zoom, r, questions.length);
-        }
-        return next;
+        return { ...prev, [qi]: oi };
       });
     },
-    [questions, recordQuiz, zoom]
+    [questions]
   );
+
+  // Test natijasini render paytida emas, javoblar to'liq bo'lgach effektда yozamiz
+  // (recordQuiz ota store'ни yangilaydi — render ichida chaqirib bo'lmaydi).
+  useEffect(() => {
+    if (questions.length > 0 && answered === questions.length) {
+      recordQuiz(zoom, right, questions.length);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answered, questions.length, zoom]);
 
   // Klaviatura: raqam tugmasi birinchi javob berilmagan savolning variantini tanlaydi.
   useEffect(() => {

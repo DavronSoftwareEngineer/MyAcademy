@@ -11,12 +11,14 @@ export function Sidebar({
   refActive,
   searchActive,
   playActive,
+  booksActive,
   onSelect,
   onDash,
   onFlash,
   onRef,
   onSearch,
   onPlay,
+  onBooks,
   onClose,
 }: {
   open: boolean;
@@ -26,17 +28,20 @@ export function Sidebar({
   refActive: boolean;
   searchActive: boolean;
   playActive: boolean;
+  booksActive: boolean;
   onSelect: (i: number) => void;
   onDash: () => void;
   onFlash: () => void;
   onRef: () => void;
   onSearch: () => void;
   onPlay: () => void;
+  onBooks: () => void;
   onClose: () => void;
 }) {
   const { course, courseId, setCourse, progress } = useStore();
   const modules = course.modules;
   const hasPlayground = !!course.playground;
+  const hasBooks = (course.books?.length || 0) > 0;
   const hasVocab = modules.some((m) => (m.vocab?.length || 0) > 0);
   const hasGrammar = modules.some((m) => (m.grammar?.length || 0) > 0);
 
@@ -111,6 +116,19 @@ export function Sidebar({
               </svg>
             </span>
             <span className="nt"><b>Ma'lumotnoma</b><span>Grammar</span></span>
+          </button>
+        )}
+
+        {hasBooks && (
+          <button className={"navitem toolbtn" + (booksActive ? " active" : "")} onClick={onBooks}>
+            <span className="zoom dz2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                <path d="M9 7h7M9 11h7" />
+              </svg>
+            </span>
+            <span className="nt"><b>Kitoblar</b><span>O'qish ro'yxati</span></span>
           </button>
         )}
 

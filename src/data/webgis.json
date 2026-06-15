@@ -546,7 +546,7 @@
   "eyebrow": "Frontend · React TS · Vite",
   "mtitle": "Frontend — foydalanuvchi ko'radigan tomon",
   "lede": "Backend data beradi, lekin foydalanuvchi <strong>xaritani</strong> ko'radi. Bu bo'limda React + TypeScript + Vite asosida MapLibre xaritasini qurib, uni o'z API'ingga ulaysan va xarita harakatlanганда datani jonli yangilaysan.",
-  "doc": "<p>Nega Vite? — u juda tez dev server beradi va React + TypeScript shablonini bir buyruq bilan tayyorlaydi. Sening React TS tajribang bu yerda to'g'ridan-to'g'ri ishlaydi.</p>\n<h3>O'rganadigan mavzular</h3>\n<div class=\"chips\">\n<span class=\"chip t\">Vite + React + TS</span><span class=\"chip\">komponentlar</span>\n<span class=\"chip\">useRef / useEffect</span><span class=\"chip t\">MapLibre GL JS</span>\n<span class=\"chip\">map lifecycle</span><span class=\"chip\">vector + geojson source</span>\n<span class=\"chip\">bbox refresh</span><span class=\"chip\">search + flyTo</span><span class=\"chip\">popup</span>\n</div>\n<h3>MapLibre vs Leaflet — qachon qaysi biri?</h3>\n<p><strong>MapLibre GL JS</strong> — vector tiles, WebGL/GPU, 3D, silliq uzluksiz zoom. Sening Tegola pipeline'ing uchun aynan shu kerak — million obyektni GPU'da render qiladi. <strong>Leaflet</strong> — raster tiles, oddiyroq API, ulkan plugin ekotizimi, lekin native vector tile va WebGL yo'q. Tez prototip yoki oddiy marker xaritasi uchun yaxshi.</p>\n<div class=\"callout\">\n<span class=\"ic\"><svg fill=\"none\" height=\"20\" stroke=\"currentColor\" stroke-width=\"2\" viewbox=\"0 0 24 24\" width=\"20\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"12\" x2=\"12\" y1=\"8\" y2=\"12\"></line><line x1=\"12\" x2=\"12.01\" y1=\"16\" y2=\"16\"></line></svg></span>\n<div><p>Diqqat: koordinata tartibi</p><p>MapLibre <code class=\"inline\">[lng, lat]</code> tartibini kutadi, Leaflet esa <code class=\"inline\">[lat, lng]</code>. Eng ko'p uchraydigan xato shu — marker noto'g'ri joyda chiqsa, avval shuni tekshir.</p></div>\n</div>\n<h3>Map komponenti tuzilishi</h3>\n<p>Xarita DOM'ga bir marta yaratiladi va React qayta render qilganda <strong>qayta yaratilmasligi</strong> kerak. Shuning uchun <code class=\"inline\">useRef</code> (DOM va map obyekti uchun) + <code class=\"inline\">useEffect</code> (yaratish va tozalash uchun) ishlatiladi.</p>\n<h3>Bu bo'lim oxiridagi natija</h3>\n<p>Vector tile (Tegola) + API GeoJSON (NestJS) ikkalasini ko'rsatadigan, xarita harakatlanganда bbox bo'yicha yangilanadigan, qidiruv va popup'li interaktiv WebGIS frontend.</p>",
+  "doc": "<p>Nega Vite? — u juda tez dev server beradi va React + TypeScript shablonini bir buyruq bilan tayyorlaydi. Sening React TS tajribang bu yerda to'g'ridan-to'g'ri ishlaydi.</p>\n<h3>O'rganadigan mavzular</h3>\n<div class=\"chips\">\n<span class=\"chip t\">Vite + React + TS</span><span class=\"chip\">komponentlar</span>\n<span class=\"chip\">useRef / useEffect</span><span class=\"chip t\">MapLibre GL JS</span>\n<span class=\"chip\">map lifecycle</span><span class=\"chip\">vector + geojson source</span>\n<span class=\"chip\">bbox refresh</span><span class=\"chip\">search + flyTo</span><span class=\"chip\">popup</span>\n</div>\n<h3>MapLibre vs Leaflet — qachon qaysi biri?</h3>\n<p><strong>MapLibre GL JS</strong> — vector tiles, WebGL/GPU, 3D, silliq uzluksiz zoom. Sening Tegola pipeline'ing uchun aynan shu kerak — million obyektni GPU'da render qiladi. <strong>Leaflet</strong> — raster tiles, oddiyroq API, ulkan plugin ekotizimi, lekin native vector tile va WebGL yo'q. Tez prototip yoki oddiy marker xaritasi uchun yaxshi.</p>\n<div class=\"callout\">\n<span class=\"ic\"><svg fill=\"none\" height=\"20\" stroke=\"currentColor\" stroke-width=\"2\" viewbox=\"0 0 24 24\" width=\"20\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"12\" x2=\"12\" y1=\"8\" y2=\"12\"></line><line x1=\"12\" x2=\"12.01\" y1=\"16\" y2=\"16\"></line></svg></span>\n<div><p>Diqqat: koordinata tartibi</p><p>MapLibre <code class=\"inline\">[lng, lat]</code> tartibini kutadi, Leaflet esa <code class=\"inline\">[lat, lng]</code>. Eng ko'p uchraydigan xato shu — marker noto'g'ri joyda chiqsa, avval shuni tekshir.</p></div>\n</div>\n<h3>Map komponenti tuzilishi</h3>\n<p>Xarita DOM'ga bir marta yaratiladi va React qayta render qilganda <strong>qayta yaratilmasligi</strong> kerak. Shuning uchun <code class=\"inline\">useRef</code> (DOM va map obyekti uchun) + <code class=\"inline\">useEffect</code> (yaratish va tozalash uchun) ishlatiladi.</p>\n<h3>Bu bo'lim oxiridagi natija</h3>\n<p>Vector tile (Tegola) + API GeoJSON (NestJS) ikkalasini ko'rsatadigan, xarita harakatlanganда bbox bo'yicha yangilanadigan, qidiruv va popup'li interaktiv WebGIS frontend.</p>\n<h3>deck.gl va Three.js — katta hajmli va 3D vizualizatsiya</h3>\n<p>MapLibre va Leaflet oddiy xarita uchun yetadi. Lekin <strong>millionlab nuqta</strong> yoki <strong>3D</strong> kerak bo'lsa — WebGL kutubxonalari ishga tushadi (bular asosan <strong>frontend</strong> qismi):</p>\n<div class=\"exlist\"><div class=\"ex\"><b>deck.gl</b><span>Uber'ning WebGL data-viz qatlamlari: millionlab nuqta/yo'l, heatmap, hexagon — MapLibre ustiga qo'yiladi</span></div><div class=\"ex\"><b>Three.js</b><span>umumiy 3D dvigatel (WebGL): 3D bino, sahna, model. React'da <code class=\"inline\">react-three-fiber</code> (R3F) bilan</span></div></div>\n<div class=\"callout\"><span class=\"ic\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"/><line x1=\"12\" y1=\"16\" x2=\"12.01\" y2=\"16\"/></svg></span><div><p>Qaysi birini?</p><p>Oddiy xarita → <strong>MapLibre/Leaflet</strong>. Katta hajmli geodata qatlamlari → <strong>deck.gl</strong>. Umumiy 3D (xaritasiz model/sahna) → <strong>Three.js</strong>. deck.gl ko'pincha MapLibre bilan birga ishlaydi.</p></div></div>",
   "code": [
    {
     "heading": {
@@ -562,7 +562,11 @@
      "h": "2. Birinchi MapLibre xaritasi (komponent)",
      "p": null
     },
-    "title": "MapView.tsx",
+    "title": "MapView",
+    "variants": [
+     { "label": "TS", "lang": "tsx", "code": "import { useRef, useEffect } from 'react';\nimport maplibregl from 'maplibre-gl';\nimport 'maplibre-gl/dist/maplibre-gl.css';\n\nexport function MapView() {\n  const ref = useRef<HTMLDivElement>(null);\n  useEffect(() => {\n    if (!ref.current) return;\n    const map = new maplibregl.Map({\n      container: ref.current,\n      style: 'https://demotiles.maplibre.org/style.json',\n      center: [69.24, 41.31],\n      zoom: 11,\n    });\n    return () => map.remove();\n  }, []);\n  return <div ref={ref} style={{ width: '100%', height: '100vh' }} />;\n}" },
+     { "label": "JS", "lang": "jsx", "code": "import { useRef, useEffect } from 'react';\nimport maplibregl from 'maplibre-gl';\nimport 'maplibre-gl/dist/maplibre-gl.css';\n\nexport function MapView() {\n  const ref = useRef(null);\n  useEffect(() => {\n    if (!ref.current) return;\n    const map = new maplibregl.Map({\n      container: ref.current,\n      style: 'https://demotiles.maplibre.org/style.json',\n      center: [69.24, 41.31],\n      zoom: 11,\n    });\n    return () => map.remove();\n  }, []);\n  return <div ref={ref} style={{ width: '100%', height: '100vh' }} />;\n}" }
+    ],
     "lang": "tsx",
     "code": "import { useRef, useEffect } from \"react\";\nimport maplibregl from \"maplibre-gl\";\nimport \"maplibre-gl/dist/maplibre-gl.css\";\n\nexport function MapView() {\n  const ref = useRef<HTMLDivElement>(null);\n\n  useEffect(() => {\n    if (!ref.current) return;\n    const map = new maplibregl.Map({\n      container: ref.current,\n      style: \"https://demotiles.maplibre.org/style.json\",\n      center: [69.24, 41.31],   // Toshkent — [lng, lat]\n      zoom: 11,\n    });\n    return () => map.remove();   // tozalash — muhim!\n  }, []);\n\n  return <div ref={ref} style={{ width: \"100%\", height: \"100vh\" }} />;\n}"
    },
@@ -590,6 +594,10 @@
      "p": null
     },
     "title": "qidiruv natijasiga uchish",
+    "variants": [
+     { "label": "TS", "lang": "tsx", "code": "async function search(q: string) {\n  const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);\n  const fc = await res.json();\n  const f = fc.features[0];\n  if (!f) return;\n  const [lng, lat] = f.geometry.coordinates;\n  map.flyTo({ center: [lng, lat], zoom: 16 });\n  new maplibregl.Popup()\n    .setLngLat([lng, lat])\n    .setHTML(`<b>${f.properties.name}</b>`)\n    .addTo(map);\n}" },
+     { "label": "JS", "lang": "javascript", "code": "async function search(q) {\n  const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);\n  const fc = await res.json();\n  const f = fc.features[0];\n  if (!f) return;\n  const [lng, lat] = f.geometry.coordinates;\n  map.flyTo({ center: [lng, lat], zoom: 16 });\n  new maplibregl.Popup()\n    .setLngLat([lng, lat])\n    .setHTML(`<b>${f.properties.name}</b>`)\n    .addTo(map);\n}" }
+    ],
     "lang": "tsx",
     "code": "async function search(q: string) {\n  const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);\n  const fc = await res.json();\n  const f = fc.features[0];\n  if (!f) return;\n  const [lng, lat] = f.geometry.coordinates;\n  map.flyTo({ center: [lng, lat], zoom: 16 });\n  new maplibregl.Popup()\n    .setLngLat([lng, lat])\n    .setHTML(`<b>${f.properties.name}</b>`)\n    .addTo(map);\n}"
    },
@@ -601,6 +609,18 @@
     "title": "Leaflet — raster, oddiyroq, [lat, lng]",
     "lang": "tsx",
     "code": "import L from \"leaflet\";\nimport \"leaflet/dist/leaflet.css\";\n\nconst map = L.map(\"map\").setView([41.31, 69.24], 11);  // [lat, lng]!\nL.tileLayer(\"https://tile.openstreetmap.org/{z}/{x}/{y}.png\", {\n  attribution: \"© OpenStreetMap\",\n}).addTo(map);\n// Eslatma: Leaflet vector tile'ni native qo'llamaydi — plugin kerak."
+   },
+   {
+    "heading": { "h": "deck.gl — millionlab nuqta (WebGL)", "p": "MapLibre ustiga katta data qatlami." },
+    "title": "deck.gl",
+    "lang": "typescript",
+    "code": "import { Deck } from '@deck.gl/core';\nimport { ScatterplotLayer } from '@deck.gl/layers';\n\nnew Deck({\n  initialViewState: { longitude: 69.24, latitude: 41.31, zoom: 11 },\n  controller: true,\n  layers: [\n    new ScatterplotLayer({\n      id: 'buildings',\n      data: '/api/buildings.geojson',\n      getPosition: (d) => d.geometry.coordinates,\n      getRadius: 30,\n      getFillColor: [255, 140, 0],\n    }),\n  ],\n});"
+   },
+   {
+    "heading": { "h": "Three.js (react-three-fiber) — 3D", "p": "Xaritasiz 3D sahna/bino React'da." },
+    "title": "Scene",
+    "lang": "tsx",
+    "code": "import { Canvas } from '@react-three/fiber';\n\nfunction Building() {\n  return (\n    <mesh position={[0, 0.5, 0]}>\n      <boxGeometry args={[1, 1, 1]} />\n      <meshStandardMaterial color='orange' />\n    </mesh>\n  );\n}\n\nexport function Scene() {\n  return (\n    <Canvas>\n      <ambientLight />\n      <directionalLight position={[5, 5, 5]} />\n      <Building />\n    </Canvas>\n  );\n}"
    }
   ],
   "tasks": [
@@ -687,6 +707,27 @@
     "title": "Vite React TS (video)",
     "desc": "YouTube qidiruv",
     "host": "youtube.com"
+   },
+   {
+    "type": "doc",
+    "url": "https://deck.gl/docs",
+    "title": "deck.gl — docs",
+    "desc": "WebGL geodata qatlamlari (millionlab nuqta)",
+    "host": "deck.gl"
+   },
+   {
+    "type": "doc",
+    "url": "https://threejs.org/docs/",
+    "title": "Three.js — docs",
+    "desc": "WebGL 3D dvigatel",
+    "host": "threejs.org"
+   },
+   {
+    "type": "doc",
+    "url": "https://r3f.docs.pmnd.rs/",
+    "title": "react-three-fiber",
+    "desc": "Three.js'ni React'da ishlatish",
+    "host": "r3f.docs.pmnd.rs"
    }
   ],
   "project": {
@@ -757,6 +798,17 @@
     ],
     "c": 1,
     "w": "Vite tez ishga tushadi va react-ts shablonini bir buyruq bilan beradi."
+   },
+   {
+    "q": "Millionlab nuqtani xaritada ko'rsatish uchun eng mos?",
+    "a": [
+     "Leaflet markerlari",
+     "deck.gl (WebGL qatlami)",
+     "oddiy <img>",
+     "CSS"
+    ],
+    "c": 1,
+    "w": "deck.gl WebGL bilan millionlab obyektni tez render qiladi; MapLibre ustiga qo'yiladi. Three.js esa umumiy 3D uchun."
    }
   ],
   "exercises": [
@@ -892,6 +944,10 @@
    {
     "heading": null,
     "title": "POST — ma'lumot qabul qilish",
+    "variants": [
+     { "label": "TS", "lang": "typescript", "code": "const feedbacks: any[] = [];\n\napp.post('/api/feedback', (req, res) => {\n  const { message } = req.body;\n  if (!message) return res.status(400).json({ error: 'message kerak' });\n  feedbacks.push({ id: feedbacks.length + 1, message });\n  res.status(201).json({ ok: true });\n});" },
+     { "label": "JS", "lang": "javascript", "code": "const feedbacks = [];\n\napp.post('/api/feedback', (req, res) => {\n  const { message } = req.body;\n  if (!message) return res.status(400).json({ error: 'message kerak' });\n  feedbacks.push({ id: feedbacks.length + 1, message });\n  res.status(201).json({ ok: true });\n});" }
+    ],
     "lang": "typescript",
     "code": "const feedbacks: any[] = [];\n\napp.post(\"/api/feedback\", (req, res) => {\n  const { message } = req.body;          // frontend yuborgan ma'lumot\n  if (!message) return res.status(400).json({ error: \"message kerak\" });\n  feedbacks.push({ id: feedbacks.length + 1, message });\n  res.status(201).json({ ok: true });\n});"
    },
