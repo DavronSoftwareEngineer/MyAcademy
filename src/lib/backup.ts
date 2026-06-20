@@ -4,8 +4,10 @@ import { COURSES } from "../data/courses";
 const SUFFIXES = ["_progress", "_quiz", "_vocab", "_srs"];
 const GLOBAL_KEYS = ["active_course", "myacademy_streak", "myacademy_theme"];
 
+type BackupApp = "SkillMap" | "MyAcademy";
+
 export interface Backup {
-  app: "MyAcademy";
+  app: BackupApp;
   version: 1;
   exportedAt: string;
   data: Record<string, unknown>;
@@ -29,7 +31,7 @@ export function buildBackup(now: Date): Backup {
       }
     }
   });
-  return { app: "MyAcademy", version: 1, exportedAt: now.toISOString(), data };
+  return { app: "SkillMap", version: 1, exportedAt: now.toISOString(), data };
 }
 
 // Eksport faylini brauzerda yuklab beradi.
@@ -40,7 +42,7 @@ export function downloadBackup(now: Date): void {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `myacademy-backup-${now.toISOString().slice(0, 10)}.json`;
+  a.download = `skillmap-backup-${now.toISOString().slice(0, 10)}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -50,8 +52,8 @@ export function downloadBackup(now: Date): void {
 // JSON matnini tekshirib, localStorage'ga yozadi. Xato bo'lsa throw qiladi.
 export function applyBackup(text: string): void {
   const parsed = JSON.parse(text) as Partial<Backup>;
-  if (!parsed || parsed.app !== "MyAcademy" || typeof parsed.data !== "object") {
-    throw new Error("Bu MyAcademy zaxira fayli emas.");
+  if (!parsed || (parsed.app !== "SkillMap" && parsed.app !== "MyAcademy") || typeof parsed.data !== "object") {
+    throw new Error("Bu SkillMap zaxira fayli emas.");
   }
   const valid = new Set(allKeys());
   Object.entries(parsed.data as Record<string, unknown>).forEach(([k, v]) => {

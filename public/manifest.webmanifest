@@ -1,7 +1,7 @@
 {
-  "name": "MyAcademy",
-  "short_name": "MyAcademy",
-  "description": "To'rtta mustaqil kurs: Geospatial, English, Moliya, Rus tili.",
+  "name": "SkillMap",
+  "short_name": "SkillMap",
+  "description": "Kasbiy o'sish uchun amaliy kurslar va loyiha yo'l xaritalari.",
   "lang": "uz",
   "start_url": "./",
   "scope": "./",

@@ -1,4 +1,4 @@
-# MyAcademy
+# SkillMap
 
 ## Qo'shimcha yo'l xaritasi
 

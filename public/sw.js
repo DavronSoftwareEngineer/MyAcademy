@@ -1,7 +1,7 @@
-// MyAcademy service worker — oddiy runtime caching (offline ishlash uchun).
+// SkillMap service worker — oddiy runtime caching (offline ishlash uchun).
 // Vite build fayl nomlariga hash qo'shgani uchun aniq fayl ro'yxati saqlanmaydi;
 // o'rniga so'rovlar paytida keshlanadi (cache-first + tarmoq fallback).
-const CACHE = "myacademy-v1";
+const CACHE = "skillmap-v1";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (e) => {

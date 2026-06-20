@@ -27,7 +27,7 @@ describe("backup", () => {
     localStorage.setItem("webgis_progress", JSON.stringify({ "z0-1": true }));
     localStorage.setItem("active_course", JSON.stringify("english"));
     const b = buildBackup(new Date(2026, 0, 1));
-    expect(b.app).toBe("MyAcademy");
+    expect(b.app).toBe("SkillMap");
     expect(b.data["webgis_progress"]).toEqual({ "z0-1": true });
     expect(b.data["active_course"]).toBe("english");
   });
@@ -39,13 +39,18 @@ describe("backup", () => {
 
   it("applyBackup faqat ma'lum kalitlarni tiklaydi", () => {
     const payload = JSON.stringify({
-      app: "MyAcademy",
+      app: "SkillMap",
       version: 1,
       data: { english_quiz: { A0: { best: 3, total: 3 } }, evil_key: 1 },
     });
     applyBackup(payload);
     expect(JSON.parse(localStorage.getItem("english_quiz")!)).toEqual({ A0: { best: 3, total: 3 } });
     expect(localStorage.getItem("evil_key")).toBeNull(); // noma'lum kalit o'tkazilmaydi
+  });
+
+  it("eski MyAcademy zaxira faylini ham qabul qiladi", () => {
+    applyBackup(JSON.stringify({ app: "MyAcademy", version: 1, data: { webgis_progress: { "z0-1": true } } }));
+    expect(JSON.parse(localStorage.getItem("webgis_progress")!)).toEqual({ "z0-1": true });
   });
 
   it("buildBackup → applyBackup aylanmasi ma'lumotni saqlaydi", () => {

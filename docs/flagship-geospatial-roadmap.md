@@ -3,7 +3,7 @@
 ## Maqsad
 
 GeoPulse - hududiy obyektlar, hodisalar yoki infratuzilmani kuzatish uchun
-geospatial platforma. U MyAcademy kurslaridagi Frontend, Backend, Geospatial,
+geospatial platforma. U SkillMap kurslaridagi Frontend, Backend, Geospatial,
 Telegram Bot va Production Engineering bilimlarini bitta deploy qilingan
 portfolio loyihasida birlashtiradi.
 
@@ -107,4 +107,3 @@ Docker Compose + Nginx + CI/CD
 | Telegram Bot | Subscription, notification, admin buyruqlari |
 | English | README, issue, PR va texnik hujjatlarni Englishda yozish |
 | AI Prompt | Support promptlari, data summarization yoki operator yordamchisi |
-
